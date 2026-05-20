@@ -19,8 +19,11 @@ def get_contacts():
     #even if 200 is not specifies its the defauls
     return (jsonify({"contacts":json_contacts}),200)
 
-@app.route("/create_contacts",methods=["POST"])
+@app.route("/create_contact",methods=["POST"])
 def create_contact():
+
+    print(request.json)
+
     #check if its a valid req
     first_name=request.json.get("firstName")
     last_name=request.json.get("lastName")
@@ -34,7 +37,7 @@ def create_contact():
     #commit the contact and add to the db
     try:
         #added to the db
-        db.seesion.add(new_contact)
+        db.session.add(new_contact)
         #write into the db
         db.session.commit()
     except Exception as e:
